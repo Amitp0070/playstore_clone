@@ -1,0 +1,360 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    body {
+        font-family: Roboto, Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #202124;
+    }
+
+    .app-header {
+        position: relative;
+        height: 88vh;
+        overflow: hidden;
+        color: white;
+        background: linear-gradient(to right, rgb(0, 0, 0) 30%, rgba(123, 122, 122, 0));
+    }
+
+    .video-background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 100%;
+        object-fit: cover;
+        border: none;
+        z-index: -1;
+    }
+
+    .app-info {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .app-title {
+        font-size: 32px;
+        font-weight: 400;
+        margin-bottom: 5px;
+    }
+
+    .app-author {
+        color: #8ab4f8;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .app-stats {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .app-actions {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .app-action-btn {
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .install-btn {
+        background-color: #0f9d58;
+        border: none;
+    }
+
+    .footer-info {
+        font-size: 12px;
+        color: #9aa0a6;
+        margin-top: 20px;
+        column-gap: 2rem;
+    }
+
+    .app-content {
+        display: flex;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 20px;
+        gap: 20px;
+    }
+
+    .app-description {
+        flex: 3;
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .similar-apps {
+        flex: 1;
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .similar-app {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .similar-app-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+    }
+
+    .similar-app-info {
+        flex-grow: 1;
+    }
+
+    .similar-app-title {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .similar-app-rating {
+        font-size: 12px;
+        color: #5f6368;
+    }
+
+    .comments-section {
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .comments-section textarea {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .comments-section .comments-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .comments-section .comments-list li {
+        border-bottom: 1px solid #eee;
+        padding: 40px 0;
+        font-size: 14px;
+    }
+
+    .comments-section .comments-list li strong {
+        border-bottom: 1px solid #eee;
+        padding: 40px 0;
+        font-size: 20px;
+    }
+
+    .content {
+        color: #5f6368;
+    }
+
+    .comments-section .comments-list li:last-child {
+        border-bottom: none;
+    }
+
+    /* Rating Form Styles */
+    .rating-form {
+        margin-top: 20px;
+    }
+
+    .rating-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .rating-form label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+        color: #202124;
+    }
+
+    .rating-form select {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .rating-form button {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .app-header {
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+        }
+        .video-background {
+            width: 100%;
+            object-fit: cover;
+        }
+        .app-info {
+            position: relative;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .app-title {
+            font-size: 24px;
+        }
+        .app-stats {
+            gap: 10px;
+        }
+        .app-content {
+            flex-direction: column;
+            gap: 0;
+        }
+        .similar-apps {
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .app-title {
+            font-size: 20px;
+        }
+        .app-stats {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="app-header">
+    <video class="video-background" poster="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}/media/apps/images/app2_JPLX2sh.webp{% endif %}">
+        <source src="{{ item.video_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <video class="video-background" autoplay loop muted playsinline>
+        <source src="{{ item.video_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container-fluid h-100 d-flex align-items-end">
+        <div class="app-info">
+            <h1 class="app-title">{{ item.title }}</h1>
+            <div class="app-stats text-center">
+                <img src="{{ item.image.url }}" alt="{{ item.title }}" class="card-image">
+                <span><i class="bi bi-star-fill"></i> {{ item.rating }} <span class=""><br>{{ item.rating_count }} reviews</span></span>|
+                <span>{{ item.downloads }} <br> Downloads</span>|
+                <span>Rated for {{ item.age_rating }}</span>
+            </div>
+            <div class="app-actions">
+                <button class="btn btn-success app-action-btn install-btn">Install</button>
+                <button class="btn btn-outline-light app-action-btn">
+                    <i class="bi bi-share"></i> Share
+                </button>
+                <button class="btn btn-outline-light app-action-btn">
+                    <i class="bi bi-bookmark"></i> Add to wishlist
+                </button>
+            </div>
+            <div class="footer-info d-flex">
+                <span>This item is available for your device</span>
+                <span class="d-block">Get items in this app or game with Play Points. Learn more</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-content">
+    <div class="app-description">
+        <h2 class="section-title">About this item</h2>
+        <p>{{ item.description|linebreaks }}</p>
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h2 class="section-title">Comments</h2>
+            {% if comments %}
+            <ul class="comments-list">
+                {% for comment in comments %}
+                <li>
+                    <strong>{{ comment.user.username }}</strong> <br> <span class="content">{{ comment.created_at|date:"F j, Y, g:i a" }}</span>
+                    <br>
+                    <span class="content">{{ comment.rating }}</span>
+                    <p class="py-4 content">{{ comment.content }}</p>
+                    {% if user.is_authenticated and comment.user == user %}
+                    <form action="{% url 'delete_comment' comment.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No comments yet.</p>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <form method="post" class="rating-form">
+                {% csrf_token %}
+                <textarea name="comment_content" rows="3" placeholder="Add a comment..." required></textarea>
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <select name="rating" id="rating" required>
+                        <option value="" disabled selected>Select a rating</option>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            {% else %}
+            <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="similar-apps">
+        <h2 class="section-title">Similar items</h2>
+        {% for similar_item in similar_items %}
+        <a href="{% url 'detail' type similar_item.id %}">
+            <div class="similar-app">
+                <img src="{{ similar_item.image.url }}" alt="{{ similar_item.title }} icon" class="similar-app-icon">
+                <div class="similar-app-info">
+                    <div class="similar-app-title">{{ similar_item.title }}</div>
+                    <div class="similar-app-rating">{{ similar_item.rating }} ★</div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <p>No similar items found.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+    
+{% endblock %}

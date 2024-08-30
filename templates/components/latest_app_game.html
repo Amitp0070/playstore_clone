@@ -1,0 +1,109 @@
+<style>
+    .latest-article-card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        margin-bottom: 20px;
+    }
+
+    .latest-article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .latest-article-card img {
+        width: 80px;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    h4 {
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .card-body {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .a-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    .card-details {
+        flex: 1;
+        margin-left: 10px;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+
+    .card-category, .card-rating {
+        font-size: 0.9em;
+        color: #6c757d;
+    }
+
+    /* For smaller screens */
+    @media (max-width: 768px) {
+        .latest-article-card {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .latest-article-card {
+            width: 100%;
+        }
+    }
+</style>
+
+<section>
+    <h4 class="container-fluid">Latest Apps & Games</h4>
+    <div class="container">
+        <div class="row">
+            {% if latest_app or latest_game %}
+            {% for item in latest_app %}
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="{% url 'detail' type='app' id=item.id %}" class="latest-article-card">
+                    <div class="card-body">
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="a-icon">
+                        <div class="card-details">
+                            <div class="card-title">{{ item.title }}</div>
+                            <div class="card-category">{{ item.content }}</div>
+                            <div class="card-rating">{{ item.rating }} ★</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% for item in latest_game %}
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="{% url 'detail' type='game' id=item.id %}" class="latest-article-card">
+                    <div class="card-body">
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="a-icon">
+                        <div class="card-details">
+                            <div class="card-title">{{ item.title }}</div>
+                            <div class="card-category">{{ item.content }}</div>
+                            <div class="card-rating">{{ item.rating }} ★</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-center">No recent posts available.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>

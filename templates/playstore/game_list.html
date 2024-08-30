@@ -1,0 +1,197 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    h4 {
+        font-weight: bold;
+        color: #212529;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        color: #6c757d;
+    }
+
+    .game-list-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 20px 0;
+    }
+
+    .game-list-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, and Edge */
+    }
+
+    .card {
+        flex: 0 0 auto;
+        width: calc(33.333% - 20px);
+        margin: 0 10px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: #ffffff;
+        height: 300px;
+    }
+
+    .card:hover {
+        background-color: #f1f3f5;
+        transform: translateY(-8px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-video-container {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-video {
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        background-position: center;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+    }
+
+    .card-body {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .card-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-right: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .card-details {
+        flex: 1;
+    }
+
+    .card-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        font-size: 1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card-category {
+        color: #6c757d;
+        font-size: 0.85em;
+        padding-bottom: 2px;
+    }
+
+    .card-rating {
+        color: #495057;
+        font-size: 0.85em;
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+    }
+
+    .play-button::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 14px solid white;
+    }
+
+    @media (max-width: 1200px) {
+        .card {
+            width: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            width: calc(100% - 20px);
+        }
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="container-fluid py-3">
+    <h4>Experience our top picks on PC</h4>
+    <p>Download "Google Play Games" and get started</p>
+    <div class="game-list-container">
+        {% for game in games %}
+        <a href="{% url 'detail' type='game' id=game.id %}" class="card">
+            <div class="card-video-container">
+                <video class="card-video" poster="{% if game.thumbnail %}{{ game.thumbnail.url }}{% else %}/media/games/images/digipods.jpeg{% endif %}">
+                    <source src="{{ game.video_url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="play-button"></div>
+            </div>
+            <div class="card-body">
+                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="card-image">
+                <div class="card-details">
+                    <div class="card-title">{{ game.title }}</div>
+                    <div class="card-rating">{{ game.rating }} ★</div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    const appsWrapper = document.getElementById('appsWrapper');
+    let scrollPosition = 0;
+
+    function scrollApps(direction) {
+        const cardWidth = document.querySelector('.card').offsetWidth + 20;
+        const containerWidth = document.querySelector('.game-list-container').offsetWidth;
+        const maxScroll = appsWrapper.scrollWidth - containerWidth;
+
+        scrollPosition += direction * cardWidth;
+        scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+
+        appsWrapper.style.transform = `translateX(-${scrollPosition}px)`;
+    }
+</script>
+{% endblock js %}

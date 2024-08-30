@@ -1,0 +1,84 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .app-scroll-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    }
+    .app-scroll-container::-webkit-scrollbar { /* WebKit */
+        display: none;
+    }
+    .app-card {
+        display: inline-block;
+        width: 190px;
+        height: auto;
+        transition: transform 0.2s, box-shadow 0.2s;
+        padding: 10px;
+        border-radius: 8px;
+    }
+    .app-card:hover {
+        background-color: #efefef;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .app-icon {
+        width: 180px;
+        height: 170px;
+        border-radius: 20%;
+        margin-bottom: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .app-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: #333;
+        /* margin-bottom: 5px; */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .app-rating {
+        font-size: 14px;
+        color: #595959;
+        font-weight: bold;
+    }
+    .star {
+        color: #ffd700;
+        margin-right: 3px;
+    }
+    .app-developer {
+        font-size: 12px;
+        color: #888;
+        margin-top: 3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="container-fluid py-2">
+    <h2 class="mb-3">Top Apps</h2>
+    <div class="row">
+        <div class="col-12 app-scroll-container">
+            {% for app in apps %}
+            <a href="{% url 'detail' type='app' id=app.id %}">
+                
+            <div class="app-card">
+                <img src="{{ app.image.url }}" alt="{{ app.title }}" class="app-icon img-fluid">
+                <div class="app-title" title="{{ app.title }}">{{ app.title }}</div>
+                <div class="app-rating">
+                    <span class="star">★</span>{{ app.rating }}
+                </div>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+

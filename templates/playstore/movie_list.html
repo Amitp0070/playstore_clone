@@ -1,0 +1,156 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    h4 {
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .movies-container {
+        overflow: hidden;
+        position: relative;
+        margin: 20px 0;
+    }
+
+    .movies-wrapper {
+        display: flex;
+        transition: transform 0.7s ease;
+    }
+
+    .movie-card {
+        flex: 0 0 auto;
+        width: 200px;
+        margin-right: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card:hover {
+        transform: translateY(0px);
+        background-color: #ececec;
+    }
+
+    .movie-image {
+        width: 100%;
+        height: 280px;
+        padding: 10px;
+        border-radius: 18px;
+        object-fit: cover;
+    }
+
+    .movie-info {
+        padding-left: 10px;
+    }
+
+    .movie-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0 0 5px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    .movie-rating,
+    .movie-price {
+        font-size: 13px;
+        color: #666;
+        margin: 2px 0;
+        display: inline;
+    }
+
+    .movie-price {
+        padding-left: .5rem;
+    }
+
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: #ffffff;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 100;
+        border-radius: 20px;
+        font-size: 24px;
+    }
+
+    .scroll-btn.prev {
+        left: 10px;
+    }
+
+    .scroll-btn.next {
+        right: 10px;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<section class="py-3">
+    <div class="container-fluid">
+        <h4>Watch Your Movie</h4>
+
+        {% if movies %}
+        <div class="movies-container">
+            <button class="scroll-btn prev" onclick="scrollMovies(-1)">‹</button>
+            <div class="movies-wrapper" id="moviesWrapper">
+                {% for movie in movies %}
+                <a href="{% url 'detail' type='movie' id=movie.id %}">
+                    <div class="movie-card">
+                        <img src="{{ movie.image.url }}" alt="{{ movie.title }}" class="movie-image">
+                        <div class="movie-info">
+                            <h3 class="movie-title">{{ movie.title|truncatewords:5 }}</h3>
+                            <p class="movie-rating">{{ movie.rating }} ★ <span class="movie-price">₹{{ movie.price }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn next" onclick="scrollMovies(1)">›</button>
+        </div>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No movies available now</h4>
+            <hr>
+            <p class="mb-0">Are you a movie enthusiast?
+                <a href="{% url 'register' %}">Register</a> to contribute movie reviews.
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}
+
+{% block js %}
+<script>
+    const moviesWrapper = document.getElementById('moviesWrapper');
+    let scrollPosition = 0;
+
+    function scrollMovies(direction) {
+        const cardWidth = document.querySelector('.movie-card').offsetWidth + 20;
+        const containerWidth = document.querySelector('.movies-container').offsetWidth;
+        const maxScroll = moviesWrapper.scrollWidth - containerWidth;
+
+        scrollPosition += direction * cardWidth;
+        scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+
+        moviesWrapper.style.transform = `translateX(-${scrollPosition}px)`;
+    }
+</script>
+{% endblock js %}

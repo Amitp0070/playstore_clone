@@ -1,0 +1,155 @@
+{% block css %}
+<style>
+  footer {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    color: #333;
+  }
+  footer p {
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    color: rgb(56, 56, 56);
+  }
+
+  .footer-heading {
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+  }
+  h3 {
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+  }
+
+  .footer-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .footer-list li {
+    margin-bottom: 5px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .footer-list a {
+    color: #333;
+    text-decoration: none;
+  }
+
+  .footer-list a:hover {
+    text-decoration: underline;
+  }
+
+  .signup-section {
+    background-color: #0f9d58;
+    color: white;
+    padding: 30px;
+  }
+
+  .social-icons a {
+    color: #0f9d58;
+    font-size: 24px;
+    margin-right: 15px;
+  }
+
+  .brand-logo {
+    max-width: 150px;
+  }
+
+  .other-brands img {
+    max-height: 40px;
+    margin-right: 15px;
+  }
+
+  .house {
+    color: #0f9d58;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .house {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .house {
+      font-size: 1.5rem;
+    }
+  }
+
+  .footer-button {
+    margin-bottom: 10px;
+    padding: 9px;
+    cursor: pointer;
+  }
+</style>
+{% endblock css %}
+
+<footer>
+    <hr>
+  <div class="p-3">
+    <div class="row">
+      <div class="col-md-3">
+        <h5 class="footer-heading">ABOUT US</h5>
+        <ul class="footer-list">
+          <li><a href="#">Company Info</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partnerships</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="footer-heading">SUPPORT</h5>
+        <ul class="footer-list">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <div class="signup-section mb-4">
+          <h3>SIGN UP FOR UPDATES</h3>
+          <p>Get the latest news and updates about our apps.</p>
+          <form method="post" class="row g-1">
+            <div class="col-sm-5">
+              <input type="text" class="form p-2" placeholder="First Name">
+            </div>
+            <div class="col-sm-5">
+              <input type="email" class="form p-2" placeholder="Email">
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" class="btn footer-button fs-6 fw-bold btn-success">SUBSCRIBE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex mt-2">
+      <div class="col-md-6">
+        <div class="social-icons mb-3">
+          <a href="#"><i class="fab fa-2x fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-2x fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-2x fa-github"></i></a>
+          <a href="#"><i class="fab fa-2x fa-facebook"></i></a>
+        </div>
+       
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <div class="home_title">
+            <a href="/" class="house text-decoration-none">
+              Google Play Store
+            </a>
+            <p>&copy; 2024 Google Play Store. All Rights Reserved.</p>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</footer>
