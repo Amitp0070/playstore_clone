@@ -45,7 +45,7 @@
         width: 250px;
         color: black;
         border-color: #ddd;
-        transition: color 0.3s ease;
+        /* transition: color 0.3s ease; */
     }
 
     .img {
@@ -118,7 +118,7 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" style="color: rgba(1, 145, 1, 0.919); text-underline-position: below;"
@@ -134,13 +134,14 @@
                 <a class="nav-link" href="{% url 'movie_list' %}">Movies</a>
             </li>
         </ul>
-        <form class="form-inline search-form">
-            <label for="text">
-                <input type="search" placeholder="Search..." aria-label="Search">
-                <i class="fa-solid fa-magnifying-glass img"></i>
-            </label>
-        </form>
-        <div class=" text-center text-md-end">
+    </div>
+        <div class="d-flex mx-3">
+            <form class="form-inline search-form">
+                <label for="text">
+                    <input type="search" placeholder="Search..." aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass img"></i>
+                </label>
+            </form>
             {% if user.is_authenticated %}
             <div class="dropdown">
                 <button class="btn btn-success fs-6 align-items-center dropdown-toggle" type="button" id="userDropdown"
@@ -155,7 +156,7 @@
                 </ul>
             </div>
             {% else %}
-            <a href="{% url 'login' %}" class="btn btn-outline-dark text-decoration-none fs-6 px-3 fw-bold">Login</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-dark text-decoration-none fs-6 px-3 mx-1 fw-bold">Login</a>
             <a href="{% url 'register' %}" class="btn btn-warning text-decoration-none fs-6 px-3 fw-bold">Register</a>
             {% endif %}
         </div>
