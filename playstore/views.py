@@ -20,7 +20,12 @@ def home_view(request):
     paginator = Paginator(app_list, 8)
     page = request.GET.get('p', 1)
     app = paginator.get_page(page)
-    
+    query = request.GET.get('q')
+    if query:
+       app = App.objects.filter(title=query)
+    else:
+       app = App.objects.all()
+   
     ctx = {
         'apps': app,
         'devices': device_list,
@@ -48,7 +53,12 @@ def app_list_view(request):
 # List all books view
 def book_list_view(request):
     books = Book.objects.all().order_by('-created_at')
-    return render(request, 'playstore/book_list.html', {'books': books})
+    query = request.GET.get('q')
+    if query:
+       book = Book.objects.filter(title=query)
+    else:
+       book = Book.objects.all()
+    return render(request, 'playstore/book_list.html', {'books': books, 'query':query, 'book': book})
 
 # List all movies view
 def movie_list_view(request):
@@ -234,3 +244,5 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Logged out successfully")
     return redirect('login')
+
+
