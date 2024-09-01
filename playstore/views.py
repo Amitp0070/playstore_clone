@@ -22,10 +22,9 @@ def home_view(request):
     app = paginator.get_page(page)
     query = request.GET.get('q')
     if query:
-       app = App.objects.filter(title=query)
-    else:
-       app = App.objects.all()
-   
+        app = App.objects.filter(title__icontains=query)
+        if app is None:
+            app = App.objects.all()
     ctx = {
         'apps': app,
         'devices': device_list,
