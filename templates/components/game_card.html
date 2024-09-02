@@ -106,7 +106,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
     <a href="{% url 'detail' type='game' id=item.id %}" class="card">
         <div class="card-video-container">
-            <video class="card-video" poster="{{ item.image.url }}">
+            <video class="card-video w-100 h-100" poster="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}/media/games/images/digipods.jpeg{% endif %}">
                 <source src="{{ item.video_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -121,4 +121,5 @@
             </div>
         </div>
     </a>
+    
 </div>

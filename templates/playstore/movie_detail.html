@@ -9,6 +9,7 @@
         color: #333;
         line-height: 1.6;
     }
+
     .container-fluid {
         max-width: 1200px;
         margin: 40px auto;
@@ -17,14 +18,17 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         padding: 40px;
     }
+
     .movie-details {
         display: flex;
         gap: 60px;
         align-items: flex-start;
     }
+
     .movie-poster {
         flex: 0 0 300px;
     }
+
     .movie-poster img {
         width: 100%;
         height: auto;
@@ -32,29 +36,35 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
     }
+
     .movie-poster img:hover {
         transform: scale(1.05);
     }
+
     .movie-info {
         flex: 1;
     }
+
     .movie-title {
         font-size: 36px;
         font-weight: 700;
         margin-bottom: 20px;
         color: #2c3e50;
     }
+
     .movie-director {
         color: #34495e;
         margin-bottom: 5px;
         font-weight: 600;
         font-size: 22px;
     }
+
     .movie-released {
         color: #7f8c8d;
         margin-bottom: 20px;
         font-size: 14px;
     }
+
     .movie-meta {
         display: flex;
         gap: 30px;
@@ -63,6 +73,7 @@
         padding: 15px;
         border-radius: 8px;
     }
+
     .meta-item {
         display: flex;
         flex-direction: column;
@@ -70,12 +81,15 @@
         font-size: 14px;
         color: #2c3e50;
     }
+
     .meta-item span:first-child {
         font-weight: 600;
         font-size: 16px;
         margin-bottom: 5px;
     }
-    .movie-price, .trailer {
+
+    .movie-price,
+    .trailer {
         font-size: 16px;
         font-weight: 600;
         padding: 12px 25px;
@@ -83,16 +97,19 @@
         transition: all 0.3s ease;
         text-decoration: none;
     }
+
     .movie-price {
         background-color: #3498db;
         color: #ffffff;
         margin-right: 15px;
         box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
     }
+
     .trailer {
         color: #3498db;
         border: 2px solid #3498db;
     }
+
     .switch-link {
         display: inline-block;
         margin-top: 20px;
@@ -101,22 +118,26 @@
         font-weight: 600;
         transition: color 0.3s ease;
     }
+
     .switch-link:hover {
         color: #2980b9;
     }
-    
+
     @media (max-width: 768px) {
         .movie-details {
             flex-direction: column;
             align-items: center;
         }
+
         .movie-poster {
             flex: 0 0 auto;
             margin-bottom: 30px;
         }
+
         .movie-info {
             text-align: center;
         }
+
         .movie-meta {
             justify-content: center;
         }
@@ -126,17 +147,20 @@
     .similar-movies {
         margin-top: 60px;
     }
+
     .similar-movies h2 {
         font-size: 28px;
         margin-bottom: 30px;
         color: #2c3e50;
         font-weight: 600;
     }
+
     .similar-movies-container {
         display: flex;
         gap: 20px;
         overflow-x: auto;
     }
+
     .similar-movie-card {
         flex: 0 0 200px;
         background-color: #ffffff;
@@ -146,15 +170,18 @@
         padding: 15px;
         transition: transform 0.3s ease;
     }
+
     .similar-movie-card:hover {
         transform: translateY(-5px);
     }
+
     .similar-movie-card img {
         width: 100%;
         height: 250px;
         border-radius: 8px;
         object-fit: cover;
     }
+
     .similar-movie-title {
         font-size: 16px;
         font-weight: 600;
@@ -188,7 +215,7 @@
                     <span>{{ item.duration }} Minutes</span>
                 </div>
             </div>
-            <a href="#" class="btn movie-price">₹{{ item.price }} Movie</a> 
+            <a href="#" class="btn movie-price">₹{{ item.price }} Movie</a>
             <a href="#" class="btn trailer">Watch Trailer</a>
             <p><a href="#" class="switch-link">Watch in HD</a></p>
         </div>
